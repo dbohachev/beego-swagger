@@ -1,4 +1,4 @@
-package beegoSwagger
+package beegoSwagger // Following naming convention for packages by "swaggo wrappers family".
 
 import (
 	"github.com/astaxie/beego"

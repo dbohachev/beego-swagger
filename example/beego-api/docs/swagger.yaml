@@ -40,8 +40,6 @@ info:
 paths:
   /users:
     get:
-      consumes:
-      - application/json
       description: |-
         Get all users. No paging applied. Protected with basic auth (but on server side real protection does
         not happen, logging only).
@@ -54,8 +52,6 @@ paths:
             items:
               $ref: '#/definitions/models.User'
             type: array
-      security:
-      - BasicAuth: []
       summary: Get list of all users
       tags:
       - users
@@ -82,6 +78,8 @@ paths:
           description: Bad Request
           schema:
             $ref: '#/definitions/models.RequestError'
+      security:
+      - BasicAuth: []
       summary: Add new user
       tags:
       - users
@@ -111,13 +109,13 @@ paths:
           description: Not Found
           schema:
             $ref: '#/definitions/models.RequestError'
+      security:
+      - BasicAuth: []
       summary: Update user
       tags:
       - users
   /users/{id}:
     delete:
-      consumes:
-      - application/json
       description: Delete by user ID
       parameters:
       - description: User ID
@@ -137,12 +135,12 @@ paths:
           description: Bad Request
           schema:
             $ref: '#/definitions/models.RequestError'
+      security:
+      - BasicAuth: []
       summary: Update user
       tags:
       - users
     get:
-      consumes:
-      - application/json
       description: |-
         Get single user. ID of user should be specified. Error if no user found. Protected with basic auth
         (but on server side real protection does not happen, logging only).
@@ -167,8 +165,6 @@ paths:
           description: Not Found
           schema:
             $ref: '#/definitions/models.RequestError'
-      security:
-      - BasicAuth: []
       summary: Get single user by it's ID
       tags:
       - users

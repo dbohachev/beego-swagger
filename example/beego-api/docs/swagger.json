@@ -20,15 +20,7 @@
     "paths": {
         "/users": {
             "get": {
-                "security": [
-                    {
-                        "BasicAuth": []
-                    }
-                ],
                 "description": "Get all users. No paging applied. Protected with basic auth (but on server side real protection does\nnot happen, logging only).",
-                "consumes": [
-                    "application/json"
-                ],
                 "produces": [
                     "application/json"
                 ],
@@ -49,6 +41,11 @@
                 }
             },
             "put": {
+                "security": [
+                    {
+                        "BasicAuth": []
+                    }
+                ],
                 "description": "Update user with a json",
                 "consumes": [
                     "application/json"
@@ -93,6 +90,11 @@
                 }
             },
             "post": {
+                "security": [
+                    {
+                        "BasicAuth": []
+                    }
+                ],
                 "description": "Creates new user in our user set. User ID, if provided as part of user spec, is ignored.",
                 "consumes": [
                     "application/json"
@@ -133,15 +135,7 @@
         },
         "/users/{id}": {
             "get": {
-                "security": [
-                    {
-                        "BasicAuth": []
-                    }
-                ],
                 "description": "Get single user. ID of user should be specified. Error if no user found. Protected with basic auth\n(but on server side real protection does not happen, logging only).",
-                "consumes": [
-                    "application/json"
-                ],
                 "produces": [
                     "application/json"
                 ],
@@ -180,10 +174,12 @@
                 }
             },
             "delete": {
-                "description": "Delete by user ID",
-                "consumes": [
-                    "application/json"
+                "security": [
+                    {
+                        "BasicAuth": []
+                    }
                 ],
+                "description": "Delete by user ID",
                 "produces": [
                     "application/json"
                 ],

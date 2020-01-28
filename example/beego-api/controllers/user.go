@@ -19,14 +19,12 @@ type UsersController struct {
 // @Description Get all users. No paging applied. Protected with basic auth (but on server side real protection does
 // @Description not happen, logging only).
 // @Tags users
-// @Accept  json
-// @Security BasicAuth
 // @Produce  json
 // @Router /users [get]
 // @Success 200 {array} models.User
 func (u *UsersController) Get() {
-		u.Data["json"] = models.GetAll()
-		u.ServeJSON()
+	u.Data["json"] = models.GetAll()
+	u.ServeJSON()
 }
 
 // ListUser godoc
@@ -34,8 +32,6 @@ func (u *UsersController) Get() {
 // @Description Get single user. ID of user should be specified. Error if no user found. Protected with basic auth
 // @Description (but on server side real protection does not happen, logging only).
 // @Tags users
-// @Accept  json
-// @Security BasicAuth
 // @Produce  json
 // @Param  id path int true "User ID"
 // @Router /users/{id} [get]
@@ -49,20 +45,20 @@ func (u *UsersController) GetByID() {
 		u.serveBadRequest()
 	} else {
 		user, err := models.GetOne(userId)
-		if err != nil{
+		if err != nil {
 			u.serveNotFound()
-		}else{
+		} else {
 			u.Data["json"] = user
 			u.ServeJSON()
 		}
 	}
 }
 
-
 // AddUser godoc
 // @Summary Add new user
 // @Description Creates new user in our user set. User ID, if provided as part of user spec, is ignored.
 // @Tags users
+// @Security BasicAuth
 // @Accept  json
 // @Produce  json
 // @Param user body models.User true "The user to add"
@@ -86,6 +82,7 @@ func (u *UsersController) Post() {
 // @Summary Update user
 // @Description Update user with a json
 // @Tags users
+// @Security BasicAuth
 // @Accept  json
 // @Produce  json
 // @Param  user body models.User true "The user to update"
@@ -115,7 +112,7 @@ func (u *UsersController) Put() {
 // @Summary Update user
 // @Description Delete by user ID
 // @Tags users
-// @Accept  json
+// @Security BasicAuth
 // @Produce  json
 // @Param  id path int true "User ID" Format(int64)
 // @Success 200 {object} models.User
@@ -133,10 +130,10 @@ func (u *UsersController) Delete() {
 		// In real life application the below code will be a race condition for globally shared
 		// objects.
 		user, err := models.Delete(userId)
-		if err != nil{
+		if err != nil {
 			logs.Error("Could not delete user: %s.", err)
 			u.serveNotFound()
-		}else {
+		} else {
 			u.Data["json"] = user
 			u.ServeJSON()
 		}
@@ -161,14 +158,14 @@ func (u *UsersController) serveNotFound() {
 func (u *UsersController) serveInternalServerError() {
 	u.
 		serveResponse("Server encountered unexpected error while processing your request.",
-		http.StatusInternalServerError)
+			http.StatusInternalServerError)
 }
 
 // Carry out real response write, with specified data and response string. For simplicity, only string
 // and used only from error handlers.
-func (u *UsersController) serveResponse(message string, status int){
+func (u *UsersController) serveResponse(message string, status int) {
 	u.Ctx.ResponseWriter.WriteHeader(status)
-	u.Data["json"]  =  models.RequestError{
+	u.Data["json"] = models.RequestError{
 		ErrorCode: status,
 		Message:   message,
 	}
