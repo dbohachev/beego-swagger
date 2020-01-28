@@ -28,3 +28,5 @@ import "github.com/dbohachev/beego-swagger" // beego-swagger middleware
 ```
 
 See "example" folder for example "classic" Beego API application.
+
+![swagger_index.html](https://user-images.githubusercontent.com/51129427/73311427-0ef42980-422f-11ea-8c85-32dd301c39f5.png)
