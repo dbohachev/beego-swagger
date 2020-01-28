@@ -1,0 +1,178 @@
+basePath: /api/v1
+definitions:
+  models.RequestError:
+    properties:
+      message:
+        description: Message is the description of error; exported to json
+        type: string
+    type: object
+  models.User:
+    properties:
+      country:
+        description: Country is the country where user lives
+        example: Ukraine
+        type: string
+      id:
+        description: ID defines the user ID. Should be unique per users set
+        example: 1
+        format: int64
+        type: integer
+      name:
+        description: Name is the name of a user
+        example: Dmytro
+        maxLength: 30
+        minLength: 1
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: This is simple beego API application server.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Swagger Example API
+  version: "1.0"
+paths:
+  /users:
+    get:
+      consumes:
+      - application/json
+      description: |-
+        Get all users. No paging applied. Protected with basic auth (but on server side real protection does
+        not happen, logging only).
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.User'
+            type: array
+      security:
+      - BasicAuth: []
+      summary: Get list of all users
+      tags:
+      - users
+    post:
+      consumes:
+      - application/json
+      description: Creates new user in our user set. User ID, if provided as part
+        of user spec, is ignored.
+      parameters:
+      - description: The user to add
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/models.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.User'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.RequestError'
+      summary: Add new user
+      tags:
+      - users
+    put:
+      consumes:
+      - application/json
+      description: Update user with a json
+      parameters:
+      - description: The user to update
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/models.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.User'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.RequestError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.RequestError'
+      summary: Update user
+      tags:
+      - users
+  /users/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete by user ID
+      parameters:
+      - description: User ID
+        format: int64
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.User'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.RequestError'
+      summary: Update user
+      tags:
+      - users
+    get:
+      consumes:
+      - application/json
+      description: |-
+        Get single user. ID of user should be specified. Error if no user found. Protected with basic auth
+        (but on server side real protection does not happen, logging only).
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.User'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.RequestError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.RequestError'
+      security:
+      - BasicAuth: []
+      summary: Get single user by it's ID
+      tags:
+      - users
+securityDefinitions:
+  BasicAuth:
+    type: basic
+swagger: "2.0"
