@@ -92,7 +92,7 @@ func TestPost(t *testing.T) {
 
 	// Run
 	for _, test := range requestTests {
-		var body io.Reader = nil
+		var body io.Reader
 		if len(test.Payload) != 0 {
 			body = strings.NewReader(test.Payload)
 		}
@@ -139,7 +139,7 @@ func TestPut(t *testing.T) {
 
 	// Run
 	for _, test := range requestTests {
-		var body io.Reader = nil
+		var body io.Reader
 		if len(test.Payload) != 0 {
 			body = strings.NewReader(test.Payload)
 		}

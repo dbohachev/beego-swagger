@@ -27,7 +27,6 @@ import (
 
 // @securityDefinitions.basic BasicAuth
 
-
 func main() {
 	if beego.BConfig.RunMode == "dev" {
 		beego.BConfig.WebConfig.DirectoryIndex = true
@@ -48,7 +47,7 @@ func main() {
 	// or if you properly set authorization requirements for your API (@Security BasicAuth in example).
 	// Finally, Basic Auth is not reliable, specifically for cases when http is on,
 	// not https.
-	beego.InsertFilter("*", beego.BeforeRouter, func(context *context.Context){
+	beego.InsertFilter("*", beego.BeforeRouter, func(context *context.Context) {
 		uname, pwd, _ := context.Request.BasicAuth()
 
 		logs.Debug("Basic auth parameters are: %s %s", uname, pwd)

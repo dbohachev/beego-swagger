@@ -54,13 +54,13 @@ func TestHandler(t *testing.T) {
 	// Run
 	for _, test := range requestTests {
 		r := httptest.NewRequest(test.RequestType, test.Path, nil)
-		w := serveHttp(r)
+		w := serveHTTP(r)
 		assert.Equal(t, test.Expected, w.Code)
 	}
 }
 
 // serveHttp - wrapper to start our requests to beego
-func serveHttp(r *http.Request) *httptest.ResponseRecorder {
+func serveHTTP(r *http.Request) *httptest.ResponseRecorder {
 	w := httptest.NewRecorder()
 	beego.BeeApp.Handlers.ServeHTTP(w, r)
 	return w
