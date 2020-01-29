@@ -1,5 +1,7 @@
 # beego-swagger
 
+[![Go Report Card](https://goreportcard.com/badge/github.com/dbohachev/beego-swagger)](https://goreportcard.com/report/github.com/dbohachev/beego-swagger)
+
 Beego wrapper to automatically serve RESTful API documentation, created with Swagger 2.0.
 This is simple implementation based on original http swagger: https://github.com/swaggo/http-swagger, 
 changed a bit for Beego web framework.
