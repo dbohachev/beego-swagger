@@ -9,7 +9,7 @@ import (
 	"strconv"
 )
 
-// Operations above user models
+// UsersController allows REST-based operations for user models
 type UsersController struct {
 	beego.Controller
 }
