@@ -14,7 +14,7 @@ type UsersController struct {
 	beego.Controller
 }
 
-// ListUsers godoc
+// Get godoc
 // @Summary Get list of all users
 // @Description Get all users. No paging applied. Protected with basic auth (but on server side real protection does
 // @Description not happen, logging only).
@@ -27,7 +27,7 @@ func (u *UsersController) Get() {
 	u.ServeJSON()
 }
 
-// ListUser godoc
+// GetByID godoc
 // @Summary Get single user by it's ID
 // @Description Get single user. ID of user should be specified. Error if no user found. Protected with basic auth
 // @Description (but on server side real protection does not happen, logging only).
@@ -54,7 +54,7 @@ func (u *UsersController) GetByID() {
 	}
 }
 
-// AddUser godoc
+// Post godoc
 // @Summary Add new user
 // @Description Creates new user in our user set. User ID, if provided as part of user spec, is ignored.
 // @Tags users
@@ -78,7 +78,7 @@ func (u *UsersController) Post() {
 	}
 }
 
-// UpdateUser godoc
+// Put godoc
 // @Summary Update user
 // @Description Update user with a json
 // @Tags users
@@ -108,7 +108,7 @@ func (u *UsersController) Put() {
 	}
 }
 
-// DeleteUser godoc
+// Delete godoc
 // @Summary Update user
 // @Description Delete by user ID
 // @Tags users
